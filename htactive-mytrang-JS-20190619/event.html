@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="name1">a</label>
+            <input type="text" class="form-control" id="a" name="name" placeholder="Enter a" required onkeyup="calculate()">
+        </div>
+        <div class="form-group">
+            <label for="name1">b</label>
+            <input type="text" class="form-control" id="b" name="name" placeholder="Enter b" required onkeyup="calculate()">
+        </div>
+        <div class="form-group">
+            <label for="name1">Result</label>
+            <input type="text" class="form-control" id="result" name="name" >
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="number" value="0"/>
+            <input type="button" onclick="incrementValue()" value="+" />
+            <input type="button" onclick="decrementValue()" value="-" />
+        </div>
+    </div>
+    
+    <script>
+        function calculate(){
+            let a = document.getElementById("a");
+            let b = document.getElementById("b");
+            let result = document.getElementById("result");
+
+            let sum = parseInt(a.value)+parseInt(b.value);
+            if(!isNaN(sum))
+            result.value = sum;
+        }
+        function incrementValue(){
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('number').value = value;
+        }
+        function decrementValue(){
+            var value = parseInt(document.getElementById("number").value)
+            value = isNaN(value)?0:value;
+            value--;
+            document.getElementById('number').value= value;
+        }
+    </script>
+    
+</body>
+</html>

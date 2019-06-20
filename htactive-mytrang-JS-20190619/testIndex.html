@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>To-Do-List</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <span class="navbar-brand" >ToDo List</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="content-area row">
+      <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">   
+      </div>
+      <div class="col-md-8 col-xs-8 col-lg-8 col-sm-8">
+        <h2>ToDo List</h2>
+        <div class="row input-area">
+          <div class="form-group col-md-9">
+            <input type="text" placeholder="New Task" class="form-control" id="addTask">
+          </div>
+          <div class="form-group col-md-1">
+            <button class="btn btn-primary" id="add" style="display: block;"  onclick="toDo.addTaskClick()">Add</button>
+            <button class="btn btn-primary" id="edit" style="display: none" onclick="toDo.editTaskClick()">Edit</button>
+            <button class="btn btn-default" id="undo" style="display: none" onclick="toDo.deleteTodo()">Undo Delete</button>
+          </div>
+        </div>
+        <div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" id="myBar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div>
+            <button class="btn btn-danger" onclick="toDo.completed()">Completed Task</button>
+            <button class="btn btn-success" onclick="toDo.active()">Active Task</button>
+            <button class="btn btn-info" onclick="toDo.selectAllTask()">Select All Task</button>
+            <select id="filter" onchange="toDo.filterTask()">
+                <option value="0">All</option>
+                <option value="1">Completed</option>
+                <option value="2">Active</option>
+           </select>
+        </div>
+        <ul class="list-group" id="taskList"></ul>
+      </div>
+
+      <!-- <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2"></div> -->
+    </div>
+
+  </div><!-- /.container -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="testIndex.js"></script>
+</body>
+</html>
