@@ -1,10 +1,12 @@
 class ToDoClass {
+    
     constructor() {
+        this.deletedTask=[];
+        this.indexDeleted;
         this.tasks = JSON.parse(localStorage.getItem ('tasks'))||[]
         this.loadTasks(this.tasks)
         this.addEventListener();
         localStorage.setItem('status', JSON.stringify(false));
-        
     }
 
     addEventListener(){
@@ -16,7 +18,7 @@ class ToDoClass {
         });
     }
 
-    completeTodo(index) {
+    completeTodo= (index)=> {
         if(this.tasks[index].isComplete==true){
             this.tasks[index].isComplete=false;
             this.loadTasks();
@@ -24,91 +26,110 @@ class ToDoClass {
         else{
             this.tasks[index].isComplete=true;
             this.loadTasks();
-        }
-        
+        }    
     }
 
-    
-
-    deleteTodo(event,index){
-        document.getElementById("undo").style.display=block
-        // var del=confirm("Are you sure you want to delete this record?");
-        //     if(del == true){
-        //     event.preventDefault();
-        //     this.tasks.splice(index, 1);
-        //     localStorage.setItem('tasks', JSON.stringify(this.tasks));
-        //     this.loadTasks();
-        // }
+    //delete task
+    deleteTodo = (event,id) => {
+        document.getElementById("undo").style.display="block";
+        let index = this.tasks.findIndex(k=>k.id==id)
+        this.deletedTask = this.tasks[index];
+        this.indexDeleted = index;
+        console.log(index)
+        let el = document.getElementById('seconds-counter');
+        this.tasks.splice(index, 1);
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        this.loadTasks(this.tasks);
+        let second=6;
+        let countSecond = setInterval(() => {
+            console.log(second-=1);
+            if(second==0){
+                clearInterval(countSecond); 
+                document.getElementById("undo").style.display="none";
+            }
+        }, 1000);
     }
 
-    addTaskClick(){
+    //undo delete task
+    undoDelete = () => {
+        this.tasks.splice(this.indexDeleted, 0, this.deletedTask)
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        document.getElementById("undo").style.display="none";
+        this.loadTasks(this.tasks);
+    }
+
+    //click add task
+    addTaskClick = () => {
         let task = document.getElementById('addTask').value;
         this.addTask(task);
         document.getElementById('addTask').value = "";
     }
 
-    addTask(task){
-        let newTask = {
-            task,
-            isComplete: false
-        };
+    //add task
+    addTask = (task) => {
+        let newTask = {id: this.makeid(10),task,isComplete: false};
+        if(this.tasks.findIndex(k=>k.task == task)==-1){
+            this.tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
+            this.loadTasks();
+        }
+        else alert("the task exist")
+
         
-        this.tasks.push(newTask);
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
-        this.loadTasks();
     }
 
-    selectAllTask(){
+    //string random for id
+    makeid = (length) => {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     }
+
+    //select all task
+    selectAllTask = () => {
+        let count = 0;
         let selectAll = [];
         this.tasks.forEach(element => {
-                element.isComplete = true
-                selectAll.push(element);
-           
+            element.isComplete = true
+            selectAll.push(element);
+            count++;
         });
-        //localStorage.setItem('tasks', JSON.stringify(this.tasks));
-        return this.loadTasks(selectAll)
+        
+        return this.loadTasks(selectAll) 
+    }
+    
+
+    //edit task
+    editTodo = (event,id) => {
+        let index = this.tasks.findIndex(k=>k.id == id)
+        if(this.tasks[index].isComplete == false){
+            document.getElementById("add").style.display="none";
+            document.getElementById("edit").style.display="block";
+            document.getElementById("addTask").value= this.tasks[index].task;
+            document.getElementById("edit").value=index;
+        }
+        else{
+            alert("This is completed")
+        }
         
     }
-    //edit
-    editTodo(event,index){
-        document.getElementById("add").style.display="none";
-        document.getElementById("edit").style.display="block";
-        document.getElementById("addTask").value= this.tasks[index].task;
-        document.getElementById("edit").value=index;
 
-        // let editTasks =[];
-        // this.array.forEach(element => {
-        //     let inputEdit = document.getElementById("taskEdit").disabled=false;
-        // });
-        // let inputEdit = document.getElementById("taskEdit").disabled=false;
-        // //let a = document.getElementsByName("a").style.display="block";
 
-        // inputEdit=document.getElementById("taskEdit");
-        // editTasks.push(inputEdit);
-        // return this.loadTasks(editTasks);
-
-        
-        //document.getElementById('editTask').value=""
-    }
-
-    editTaskClick(){
+    editTaskClick = () => {
         let taskEdited = document.getElementById("addTask").value;
         let index = document.getElementById("edit").value;
         console.log(index);
         this.tasks[index].task = taskEdited;
-        
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
         document.getElementById("edit").style.display="none";
         this.loadTasks(this.tasks);
     }
 
-    //delete undo
-    // undoDelete(){
-    //     document.getElementById()
-    // }
-
-
-    generateTaskHtml(task, index) {
+    generateTaskHtml = (task, index) => {
         return `
             <li class="list-group-item checkbox">
                 <div class="row">
@@ -119,18 +140,18 @@ class ToDoClass {
                          ${task.task} 
                     </div>
                     <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 delete-icon-area">
-                    <a class="" id="save" onClick="toDo.editTodo(event, ${index})" style="display:none"><i id="saveTask" data-id="${index}" class="glyphicon glyphicon-floppy-save"></i></a>
+                    <a class="" id="save" onClick="toDo.editTodo(event, '${task.id}')" style="display:none"><i id="saveTask" data-id="${index}" class="glyphicon glyphicon-floppy-save"></i></a>
                     &nbsp;
-                    <a class="" onClick="toDo.editTodo(event, ${index})"><i id="editTask" data-id="${index}" class="glyphicon glyphicon-edit"></i></a>
+                    <a class="" onClick="toDo.editTodo(event, '${task.id}')"><i id="editTask" data-id="${index}" class="glyphicon glyphicon-edit"></i></a>
                     &nbsp;
-                    <a class="" href="" onClick="toDo.deleteTodo(event, ${index})"><i id="deleteTask" data-id="${index}" class="delete-icon glyphicon glyphicon-trash"></i></a>
+                    <a class=""  onClick="toDo.deleteTodo(event, '${task.id}')"><i id="deleteTask" data-id="${index}" class="delete-icon glyphicon glyphicon-trash"></i></a>
                     </div>
                 </div>
             </li>
         `;
     }
 
-    loadTasks(listTask) {
+    loadTasks = (listTask) => {
         if(listTask){
             localStorage.setItem('tasks', JSON.stringify(this.tasks));
             let taskHtml = listTask.reduce((html, task, index) => html += this.generateTaskHtml(task, index), "");
@@ -150,55 +171,31 @@ class ToDoClass {
         elem.style.width=Math.round(count/this.tasks.length*100)+ "%"
         elem.innerHTML = Math.round(count/this.tasks.length*100)+ "%";
 
+
     }
 
-    completed(){
-        let filterResult = [];
-        let selected = document.getElementById("filter").value;
+    //filter completed task
+    completed  = () => {
+        let filterCompleted = [];
         this.tasks.forEach(element => {
             if(element.isComplete === true){
-                filterResult.push(element);
+                filterCompleted.push(element);
             }
         });
-        return this.loadTasks(filterResult)
+        return this.loadTasks(filterCompleted)
     }
 
-    active(){
-        let filterResult = [];
-        let selected = document.getElementById("filter").value;
+    //filter active task
+    active = () => {
+        let filterActive = [];
         this.tasks.forEach(element => {
             if(element.isComplete === false){
-                filterResult.push(element);
+                filterActive.push(element);
             }
         });
-        return this.loadTasks(filterResult)
+        return this.loadTasks(filterActive)
     }
 
-    filterTask(){
-        let filterResult = [];
-        let selected = document.getElementById("filter").value;
-        if(selected == "1"){
-            this.tasks.forEach(element => {
-                if(element.isComplete === true){
-                    filterResult.push(element);
-                }
-            });
-        }
-        else if(selected == "2"){
-            this.tasks.forEach(element => {
-                if(element.isComplete === false){
-                    filterResult.push(element);
-                }
-            });
-        }
-        else  {
-            this.tasks.forEach(element => {
-                filterResult.push(element);
-            });
-        };
-        return this.loadTasks(filterResult)
-        //console.log(filterResult);
-    }      
 }
 
 let toDo;

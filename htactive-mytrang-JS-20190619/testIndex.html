@@ -25,29 +25,33 @@
       <div class="col-md-8 col-xs-8 col-lg-8 col-sm-8">
         <h2>ToDo List</h2>
         <div class="row input-area">
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-7">
             <input type="text" placeholder="New Task" class="form-control" id="addTask">
           </div>
-          <div class="form-group col-md-1">
+          <div class="form-group col-md-3">
             <button class="btn btn-primary" id="add" style="display: block;"  onclick="toDo.addTaskClick()">Add</button>
             <button class="btn btn-primary" id="edit" style="display: none" onclick="toDo.editTaskClick()">Edit</button>
-            <button class="btn btn-default" id="undo" style="display: none" onclick="toDo.deleteTodo()">Undo Delete</button>
+            
           </div>
         </div>
         <div>
           <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-success" id="myBar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped bg-success" id="myBar" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
         <div>
             <button class="btn btn-danger" onclick="toDo.completed()">Completed Task</button>
             <button class="btn btn-success" onclick="toDo.active()">Active Task</button>
             <button class="btn btn-info" onclick="toDo.selectAllTask()">Select All Task</button>
-            <select id="filter" onchange="toDo.filterTask()">
+            <button class="btn btn-default" id="undo" style="display: none; margin-left: 358px;
+            margin-top: -33px;" onclick="toDo.undoDelete()">Undo Delete</button>
+            <!-- <input type="text" name="fname" id="seconds-counter" style="display: none"> -->
+            
+            <!-- <select id="filter" onchange="toDo.filterTask()" class="dropdown-secondary">
                 <option value="0">All</option>
                 <option value="1">Completed</option>
                 <option value="2">Active</option>
-           </select>
+           </select> -->
         </div>
         <ul class="list-group" id="taskList"></ul>
       </div>
