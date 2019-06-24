@@ -60,9 +60,15 @@ class ToDoClass {
 
     //click add task
     addTaskClick = () => {
-        let task = document.getElementById('addTask').value;
-        this.addTask(task);
-        document.getElementById('addTask').value = "";
+        if(document.getElementById('addTask').value === ""){
+            alert("The input field, you should enter the content");
+        }
+        else{
+            let task = document.getElementById('addTask').value;
+            this.addTask(task);
+            document.getElementById('addTask').value = "";
+        }
+        
     }
 
     //add task
@@ -170,6 +176,7 @@ class ToDoClass {
             if(element.isComplete===true)
             count++;
         });
+        document.getElementById('addTask').value = "";
         document.getElementById("add").style.display="block";
         document.getElementById("edit").style.display="none";
         elem.style.width=Math.round(count/this.tasks.length*100)+ "%"
