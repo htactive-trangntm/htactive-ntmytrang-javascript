@@ -111,6 +111,7 @@ class ToDoClass {
             document.getElementById("edit").style.display="block";
             document.getElementById("addTask").value= this.tasks[index].task;
             document.getElementById("edit").value=index;
+            //this.loadTasks(this.tasks)
         }
         else{
             alert("This is completed")
@@ -125,8 +126,9 @@ class ToDoClass {
         console.log(index);
         this.tasks[index].task = taskEdited;
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
-        document.getElementById("edit").style.display="none";
-        this.loadTasks(this.tasks);
+        document.getElementById('addTask').value = ""
+        this.loadTasks(this.tasks)  
+        
     }
 
     generateTaskHtml = (task, index) => {
@@ -168,6 +170,8 @@ class ToDoClass {
             if(element.isComplete===true)
             count++;
         });
+        document.getElementById("add").style.display="block";
+        document.getElementById("edit").style.display="none";
         elem.style.width=Math.round(count/this.tasks.length*100)+ "%"
         elem.innerHTML = Math.round(count/this.tasks.length*100)+ "%";
 
@@ -194,6 +198,16 @@ class ToDoClass {
             }
         });
         return this.loadTasks(filterActive)
+    }
+
+    //filterAlltask
+
+    allTasks = () => {
+        let filterAlltask = [];
+        this.tasks.forEach(element => {
+            filterAlltask.push(element);
+        });
+        return this.loadTasks(filterAlltask);
     }
 
 }

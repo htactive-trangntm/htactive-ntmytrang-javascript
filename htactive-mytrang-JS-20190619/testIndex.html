@@ -30,7 +30,7 @@
           </div>
           <div class="form-group col-md-3">
             <button class="btn btn-primary" id="add" style="display: block;"  onclick="toDo.addTaskClick()">Add</button>
-            <button class="btn btn-primary" id="edit" style="display: none" onclick="toDo.editTaskClick()">Edit</button>
+            <button class="btn btn-primary" id="edit" style="display: none" type="button" onclick="toDo.editTaskClick()">Edit</button>
             
           </div>
         </div>
@@ -40,6 +40,7 @@
           </div>
         </div>
         <div>
+            <button class="btn btn-default" onclick="toDo.allTasks()">All Tasks</button>
             <button class="btn btn-danger" onclick="toDo.completed()">Completed Task</button>
             <button class="btn btn-success" onclick="toDo.active()">Active Task</button>
             <button class="btn btn-info" onclick="toDo.selectAllTask()">Select All Task</button>
