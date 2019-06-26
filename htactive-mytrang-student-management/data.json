@@ -1,0 +1,29 @@
+
+{
+    "Student" : [
+        {"id": 1, "name": "trang", "idClass": "PNV1B"},
+        {"id": 2, "name": "Duy", "idClass": "PNV2B"},
+        {"id": 3, "name": "Linh", "idClass": "PNV3B"}
+    ],
+    "Teacher" : [
+        {"id": 1, "name": "Nguyễn Đặng Nguyên Phương", "class": "PNV1B"},
+        {"id": 2, "name": "Nguyễn Đặng Nguyên Anh", "class": "PNV2B"},
+        {"id": 3, "name": "Nguyễn Minh Anh", "class": "PNV3B"}
+    ],
+    "class" : [
+        {"id":"1b", "class":"PNV1B", "teacher":1 },
+        {"id":"2b", "class":"PNV1B", "teacher":1 },
+        {"id":"3b", "class":"PNV1B", "teacher":1 }
+    ],
+    "Subject" : [
+        {"id":"mat", "subjectName": "Math"},
+        {"id":"eng", "subjectName": "English"},
+        {"id":"IT", "subjectName": "Information Technology"}
+    ],
+    "Score" : [
+        {"idSubject":"mat", "studentID": "Duy", "score": 10},
+        {"idSubject":"mat", "studentID": "trang", "score": 8},
+        {"idSubject":"mat", "studentID": "Linh", "score": 0}
+    ]
+}  
+
