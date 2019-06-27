@@ -16,7 +16,7 @@
                 <ul class="navbar-nav">
                     <li><h2>My account</h2></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Students</a>
+                        <a class="nav-link" href="" onclick="loadStudent()"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Students</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i> Teachers</a>
@@ -40,29 +40,37 @@
             <div class="col-md-12 row" id="addStudent" style="display: none">
                 <div class="col-md-6">
                     <label for="usr"></label>ID</label>
-                    <input type="text" placeholder="Please enter the ID" class="form-control" id="idStudent">
+                    <input type="text"  placeholder="Please enter the ID" class="form-control" id="idStudent">
+                    <div id="error"></div>
                 </div>
                 <div class="col-md-6"> <label for="pwd">Name</label>
-                    <input type="text" placeholder="Please enten the student's name" class="form-control" id="studentName">
+                    <input type="text"  placeholder="Please enten the student's name" class="form-control" id="studentName">
                 </div>  
-                <div class="col-md-6" ><label for="pwd">ID class</label>
+                <div class="col-md-6" ><label for="pwd" style="margin-top: 16px;">Class Name</label>
                     <select id="className">
                     </select>
                 </div> 
                 <div class="col-md-6">
-                    <button style="margin-top: 14px;" class="btn btn-success" onclick="toDo.active()">Save</button>
+                    <button style="margin-top: 14px;" class="btn btn-success" onclick="addStudentClick()" style="display: block">Save</button>
+                    <button style="margin-top: 14px;" class="btn btn-info" onclick="addStudentClick()" style="display: none">Edit</button>
                 </div> 
             </div>
             <div class="col-md-12">
                 <h1>List of students</h1>
+                <div class="search-container">
+                    <form action="">
+                        <input type="text" placeholder="Search.." name="search" id="search">
+                        <button type="submit" onclick="search()"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
                 <div class="showInforStudents border border-dark rounded">
-                    <table class="table table-striped">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">ID class</th>
+                            <th scope="col">Class Name</th>
                             <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -72,6 +80,7 @@
             </div>
         </div>
     </div>
+    
 </body>
     <script type="text/javascript" src="index.js"></script>
 </html>
