@@ -38,7 +38,7 @@ selectedClass = (classes, idClassSt) => {
     let arrClassName = "";
     //console.log(idClassSt);
     classes.forEach(element => {
-        arrClassName +=` <option value="${element.id}" ${element.id == idClassSt ? "selected" : "ly"}>${element.className}</option>`
+        arrClassName +=` <option value="${element.id}" ${element.id == idClassSt ? "selected" : ""}>${element.className}</option>`
     });
     return arrClassName ;
 }
